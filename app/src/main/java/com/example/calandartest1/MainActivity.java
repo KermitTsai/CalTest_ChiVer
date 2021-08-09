@@ -14,6 +14,10 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import java.util.Locale;
+
+
+
 public class MainActivity extends AppCompatActivity implements  CalendarAdapter.OnItemListener{
 
     private TextView monthYearText;
@@ -45,31 +49,55 @@ public class MainActivity extends AppCompatActivity implements  CalendarAdapter.
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
     }
-
+    //控制日期與日期排版
     private ArrayList<String> daysInMonthArray(LocalDate date) {
         ArrayList<String> daysInMonthArray = new ArrayList<>();
         YearMonth yearMonth = YearMonth.from(date);
-
-        int daysInMonth = yearMonth.lengthOfMonth();
+        int z=0;//解決日期上方空白之計次變數
+        int daysInMonth = yearMonth.lengthOfMonth();//當月之中有幾天 //yearMonth ->取得年月日
 
         LocalDate firstOfMonth = selectedDate.withDayOfMonth(1);
-        int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
+        int startDayOfFirstWeek = firstOfMonth.getDayOfWeek().getValue();
 
+        //自己寫的迴圈
+        // 1.大if:若startDayOfFirstWeek==7，避免第一個禮拜為空白，故額外處理填入日期 2.else if:除了startDayOfFirstWeek==7，填入空白日 3.else 填入日期
         for(int i=1;i<=42;i++){
-            if(i<=dayOfWeek || i >daysInMonth + dayOfWeek){
-                daysInMonthArray.add("");
+            //if條件敘述為 日期開始前與後要填入空白 else則填入開始日期的數字
+            if(startDayOfFirstWeek==7){
+                if(i<=31)
+                    daysInMonthArray.add(String.valueOf(i));
+                else
+                    break;
+
+            }
+            else if(i<=startDayOfFirstWeek || i >daysInMonth + startDayOfFirstWeek){
+                daysInMonthArray.add(" ");//original code
             }
             else {
-                daysInMonthArray.add(String.valueOf(i- dayOfWeek));
+                daysInMonthArray.add(String.valueOf(i-startDayOfFirstWeek));
             }
         }
+
+        /*原本的迴圈 cons:第一個禮拜空白
+        for(int i=1;i<=42;i++){
+            //if條件敘述為 日期開始前與後要填入空白 else則填入開始日期的數字
+            if(i<=startDayOfFirstWeek || i >daysInMonth + startDayOfFirstWeek){
+                daysInMonthArray.add(" ");//original code
+            }
+            else {
+                daysInMonthArray.add(String.valueOf(i-startDayOfFirstWeek));
+            }
+        }*/
         return daysInMonthArray;
 
     }
 
     private String MonthYearFromDate(LocalDate date){
-        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("MMMM yyyy");
+        //Chinese Ver. 要改成英文去掉 Locale.CHINA即可() (import java.util.Locale;)
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("MMMM yyyy",Locale.CHINA);
         return date.format(formatter);
+
+
     }
 
     public void previousMonthAction(View view) {
@@ -88,5 +116,8 @@ public class MainActivity extends AppCompatActivity implements  CalendarAdapter.
             String message = "Selected Date " + dayText+"  "+MonthYearFromDate(selectedDate);
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void newEvent(View view) {
     }
 }

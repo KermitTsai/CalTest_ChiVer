@@ -42,7 +42,9 @@
                 android:text="@string/plus"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="newEvent"
+                />
 
         </RelativeLayout>
 
@@ -103,7 +105,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="SUN"
+                android:text="日"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="15sp" />
@@ -112,7 +114,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="MON"
+                android:text="一"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="15sp" />
@@ -121,7 +123,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TUE"
+                android:text="二"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="15sp" />
@@ -130,7 +132,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="WED"
+                android:text="三"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="15sp" />
@@ -139,7 +141,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="THU"
+                android:text="四"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="15sp" />
@@ -148,7 +150,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="FRI"
+                android:text="五"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="15sp" />
@@ -157,7 +159,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="SAT"
+                android:text="六"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="15sp" />
@@ -188,6 +190,15 @@
         android:layout_weight="1"
         android:orientation="vertical"
         >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            />
+
+
 
 
     </LinearLayout>
